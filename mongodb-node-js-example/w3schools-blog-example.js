@@ -1,6 +1,19 @@
 // W3schools MongoDB tutorial
 // https://www.w3schools.com/mongodb/index.php
 
+// Install Docker Desktop:
+// winget install Docker.DockerDesktop
+
+// Install Node.js:
+// npm init -y
+// npm install mongodb
+
+// Run Docker Desktop:
+// docker run --name mongodb -d -p 27017:27017 mongo:latest
+
+// Run Node.js:
+// node w3schools-blog-example.js
+
 const { MongoClient } = require('mongodb');
 
 // Connection URL
@@ -83,7 +96,7 @@ async function main() {
       .toArray();
 
     console.log('Found projection:', projectionResult);
-    
+
     // deleteMany
     // const deleteManyResult = await collection.deleteMany({ tags: "news" });
 
