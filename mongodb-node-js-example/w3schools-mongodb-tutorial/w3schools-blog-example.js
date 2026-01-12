@@ -23,6 +23,8 @@ async function main() {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
 
+    // ********  Insert  ********
+
     // insertOne
     // const insertOneResult = await collection.insertOne({
     //   title: "Post Title 1",
@@ -65,6 +67,8 @@ async function main() {
 
     // console.log('Inserted documents:', insertManyResult.insertedIds);
 
+    // ********  Find  ********
+
     // findOne
     // const findOneResult = await collection.findOne({ category: "News" }); 
 
@@ -78,16 +82,42 @@ async function main() {
 
     // Projection
     //const projectionResult = await collection.find({}, { projection: {title: 1, date: 1}}).toArray();
-    const projectionResult = await collection.find()
+    const projectionResult = await collection
+      .find()
       .project({ title: 1, date: 1, _id: 0 })
       .toArray();
 
     console.log('Found projection:', projectionResult);
+
+    // ********  Update  ********
+
+    // updateOne
+    const updateOneResult = await collection.updateOne( { title: "Post Title 1" }, { $set: { likes: 42 } } );
+
+    console.log('Updated document:', updateOneResult);
+
+    const test = await collection.findOne({ title: "Post Title 1" });
+    console.log('Check update:', test);
+
+    // updateMany ($inc = increment)
+    const updateManyResult = await collection.updateMany({}, { $inc: { likes: 1 } });
+
+    console.log('Updated document:', updateManyResult);
+
+    // ********  Delete  ********
+
+    // deleteOne
+    const deleteOneResult = await collection.deleteOne({ title: "Post Title 4" });
+
+    console.log('Deleted document:', deleteOneResult);
     
     // deleteMany
+    // const deleteManyResult = await collection.deleteMany({ category: "Technology" });
     // const deleteManyResult = await collection.deleteMany({ tags: "news" });
 
     // console.log('deleteMany result:', deleteManyResult);
+
+    // ******** Query operators ********
 
   } catch (err) {
 
